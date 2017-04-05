@@ -36,11 +36,15 @@ import me.mrdaniel.npcs.utils.ServerUtils;
 
 public class NPCManager extends NPCObject {
 
+	private final boolean open_menu;
+
 	private final PaginationService service;
 	private final Map<UUID, Living> selected;
 
 	public NPCManager(@Nonnull final NPCs npcs, @Nonnull final Config config) {
 		super(npcs);
+
+		this.open_menu = config.getNode("open_menu_on_select").getBoolean(true);
 
 		this.service = npcs.getGame().getServiceManager().provide(PaginationService.class).get();
 		this.selected = Maps.newHashMap();
@@ -70,6 +74,8 @@ public class NPCManager extends NPCObject {
 	public void select(@Nonnull final Player p, @Nonnull final Living npc) throws NPCException {
 		if (super.getGame().getEventManager().post(new NPCEvent.Select(super.getContainer(), p, npc))) { throw new NPCException("Could not select NPC: Event was cancelled!"); }
 		this.selected.put(p.getUniqueId(), npc);
+
+		if (this.open_menu) { this.sendMenu(p, npc); }
 	}
 
 	public void deselect(@Nonnull final UUID uuid) {
@@ -124,10 +130,12 @@ public class NPCManager extends NPCObject {
 		lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Interact: ")).append(getBooleanText(data.canInteract())).onHover(TextActions.showText(getToggleText(data.canInteract()))).onClick(TextActions.runCommand("/npc interact " + !data.canInteract())).build());
 		lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Glow: ")).append(getBooleanText(npc.get(Keys.GLOWING).orElse(false))).onHover(TextActions.showText(getToggleText(npc.get(Keys.GLOWING).orElse(false)))).onClick(TextActions.runCommand("/npc glow " + !npc.get(Keys.GLOWING).orElse(false))).build());
 		if (npc.supports(Keys.CAREER)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Career: ", TextColors.AQUA, npc.get(Keys.CAREER).map(type -> type.getName()).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc career <career>")).build()); }
-		if (npc.supports(Keys.OCELOT_TYPE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Cat: ", TextColors.AQUA, npc.get(Keys.OCELOT_TYPE).map(type -> type.getName()).map(str -> capitalize(str.toLowerCase().replace("cat", "").replace("ocelot", ""))).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc cat <cattype>")).build()); }
-		if (npc.supports(Keys.HORSE_VARIANT)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Variant: ", TextColors.AQUA, npc.get(Keys.HORSE_VARIANT).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc variant <horsetype>")).build()); }
-		if (npc.supports(Keys.HORSE_STYLE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Stype: ", TextColors.AQUA, npc.get(Keys.HORSE_STYLE).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc style <horsestyle>")).build()); }
-		if (npc.supports(Keys.HORSE_COLOR)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Color: ", TextColors.AQUA, npc.get(Keys.HORSE_COLOR).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc color <horsecolor>")).build()); }
+		if (npc.supports(Keys.OCELOT_TYPE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Cat: ", TextColors.AQUA, npc.get(Keys.OCELOT_TYPE).map(type -> type.getName()).map(str -> capitalize(str.toLowerCase().replace("cat", "").replace("ocelot", ""))).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc cat <type>")).build()); }
+		if (npc.supports(Keys.ZOMBIE_TYPE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Zombie: ", TextColors.AQUA, npc.get(Keys.ZOMBIE_TYPE).map(type -> type.getName()).map(str -> capitalize(str.toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc zombie <type>")).build()); }
+		if (npc.supports(Keys.SKELETON_TYPE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Skeleton: ", TextColors.AQUA, npc.get(Keys.SKELETON_TYPE).map(type -> type.getName()).map(str -> capitalize(str.toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc skeleton <type>")).build()); }
+		if (npc.supports(Keys.HORSE_VARIANT)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Variant: ", TextColors.AQUA, npc.get(Keys.HORSE_VARIANT).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc variant <variant>")).build()); }
+		if (npc.supports(Keys.HORSE_STYLE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Stype: ", TextColors.AQUA, npc.get(Keys.HORSE_STYLE).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc style <style>")).build()); }
+		if (npc.supports(Keys.HORSE_COLOR)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Color: ", TextColors.AQUA, npc.get(Keys.HORSE_COLOR).map(type -> capitalize(type.getName().toLowerCase())).orElse("None"))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc color <color>")).build()); }
 		if (npc.supports(Keys.SLIME_SIZE)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Size: ", TextColors.AQUA, npc.get(Keys.SLIME_SIZE).orElse(0))).onHover(TextActions.showText(Text.of(TextColors.YELLOW, "Change"))).onClick(TextActions.suggestCommand("/npc size <size>")).build()); }
 		if (npc.supports(Keys.IS_SITTING)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Sit: ")).append(getBooleanText(npc.get(Keys.IS_SITTING).orElse(false))).onHover(TextActions.showText(getToggleText(npc.get(Keys.IS_SITTING).orElse(false)))).onClick(TextActions.runCommand("/npc sit " + !npc.get(Keys.IS_SITTING).orElse(false))).build()); }
 		if (npc.supports(Keys.CREEPER_CHARGED)) { lines.add(Text.builder().append(Text.of(TextColors.GOLD, "Charge: ")).append(getBooleanText(npc.get(Keys.CREEPER_CHARGED).orElse(false))).onHover(TextActions.showText(getToggleText(npc.get(Keys.CREEPER_CHARGED).orElse(false)))).onClick(TextActions.runCommand("/npc charge " + !npc.get(Keys.CREEPER_CHARGED).orElse(false))).build()); }
