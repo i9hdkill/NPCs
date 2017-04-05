@@ -16,7 +16,6 @@ import me.mrdaniel.npcs.NPCs;
 import me.mrdaniel.npcs.data.npc.NPCData;
 import me.mrdaniel.npcs.event.NPCEvent;
 import me.mrdaniel.npcs.utils.ServerUtils;
-import me.mrdaniel.npcs.utils.TextUtils;
 
 public class CommandCopy extends NPCCommand {
 
@@ -39,8 +38,9 @@ public class CommandCopy extends NPCCommand {
 		npc.get(Keys.CUSTOM_NAME_VISIBLE).ifPresent(value -> copy.offer(Keys.CUSTOM_NAME_VISIBLE, value));
 		npc.get(Keys.DISPLAY_NAME).ifPresent(value -> copy.offer(Keys.DISPLAY_NAME, value));
 		npc.get(Keys.OCELOT_TYPE).ifPresent(value -> copy.offer(Keys.OCELOT_TYPE, value));
-		npc.get(Keys.ZOMBIE_TYPE).ifPresent(value -> copy.offer(Keys.ZOMBIE_TYPE, value));
-		npc.get(Keys.SKELETON_TYPE).ifPresent(value -> copy.offer(Keys.SKELETON_TYPE, value));
+		npc.get(Keys.HORSE_VARIANT).ifPresent(value -> copy.offer(Keys.HORSE_VARIANT, value));
+		npc.get(Keys.HORSE_STYLE).ifPresent(value -> copy.offer(Keys.HORSE_STYLE, value));
+		npc.get(Keys.HORSE_COLOR).ifPresent(value -> copy.offer(Keys.HORSE_COLOR, value));
 		npc.get(Keys.CAREER).ifPresent(value -> copy.offer(Keys.CAREER, value));
 		npc.get(Keys.SLIME_SIZE).ifPresent(value -> copy.offer(Keys.SLIME_SIZE, value));
 		npc.get(Keys.GLOWING).ifPresent(value -> copy.offer(Keys.GLOWING, value));
@@ -58,7 +58,5 @@ public class CommandCopy extends NPCCommand {
 			to.setItemInHand(HandTypes.OFF_HAND, from.getItemInHand(HandTypes.OFF_HAND).orElse(null));
 		}
 		player.getWorld().spawnEntity(copy, ServerUtils.getSpawnCause(copy));
-
-		player.sendMessage(TextUtils.getMessage("You successfully copied the selected NPC."));
 	}
 }

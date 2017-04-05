@@ -5,6 +5,12 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 
 import org.spongepowered.api.data.type.Career;
+import org.spongepowered.api.data.type.HorseColor;
+import org.spongepowered.api.data.type.HorseColors;
+import org.spongepowered.api.data.type.HorseStyle;
+import org.spongepowered.api.data.type.HorseStyles;
+import org.spongepowered.api.data.type.HorseVariant;
+import org.spongepowered.api.data.type.HorseVariants;
 import org.spongepowered.api.data.type.OcelotType;
 import org.spongepowered.api.data.type.SkeletonType;
 import org.spongepowered.api.data.type.ZombieType;
@@ -22,6 +28,9 @@ public class ChoiceMaps {
 	private final Map<String, Career> careers;
 	private final Map<String, ZombieType> zombies;
 	private final Map<String, SkeletonType> skeletons;
+	private final Map<String, HorseVariant> variants;
+	private final Map<String, HorseStyle> styles;
+	private final Map<String, HorseColor> colors;
 
 	public ChoiceMaps(@Nonnull final NPCs npcs) {
 		this.npcs = Maps.newHashMap();
@@ -29,6 +38,9 @@ public class ChoiceMaps {
 		this.careers = Maps.newHashMap();
 		this.zombies = Maps.newHashMap();
 		this.skeletons = Maps.newHashMap();
+		this.variants = Maps.newHashMap();
+		this.styles = Maps.newHashMap();
+		this.colors = Maps.newHashMap();
 
 		this.npcs.put("bat", EntityTypes.BAT);
 		this.npcs.put("blaze", EntityTypes.BLAZE);
@@ -68,8 +80,28 @@ public class ChoiceMaps {
 
 		npcs.getGame().getRegistry().getAllOf(OcelotType.class).forEach(ocelot -> this.cats.put(ocelot.getId().toLowerCase().replace("minecraft:", "").replace("ocelot", "").replace("cat", "").replace("_", ""), ocelot));
 		npcs.getGame().getRegistry().getAllOf(Career.class).forEach(career -> this.careers.put(career.getId().toLowerCase().replace("minecraft:", "").replace("_", ""), career));
-		npcs.getGame().getRegistry().getAllOf(ZombieType.class).forEach(zombie -> this.zombies.put(zombie.getId().toLowerCase().replace("minecraft:",  ""), zombie));
-		npcs.getGame().getRegistry().getAllOf(SkeletonType.class).forEach(skeleton -> this.skeletons.put(skeleton.getId().toLowerCase().replace("minecraft:",  ""), skeleton));
+		npcs.getGame().getRegistry().getAllOf(ZombieType.class).forEach(zombie -> this.zombies.put(zombie.getId().toLowerCase().replace("minecraft:", ""), zombie));
+		npcs.getGame().getRegistry().getAllOf(SkeletonType.class).forEach(skeleton -> this.skeletons.put(skeleton.getId().toLowerCase().replace("minecraft:", ""), skeleton));
+
+		this.variants.put("donkey", HorseVariants.DONKEY);
+		this.variants.put("horse", HorseVariants.HORSE);
+		this.variants.put("mule", HorseVariants.MULE);
+		this.variants.put("skeleton", HorseVariants.SKELETON_HORSE);
+		this.variants.put("undead", HorseVariants.UNDEAD_HORSE);
+
+		this.styles.put("none", HorseStyles.NONE);
+		this.styles.put("white", HorseStyles.WHITE);
+		this.styles.put("whitefiend", HorseStyles.WHITEFIELD);
+		this.styles.put("whitedots", HorseStyles.WHITE_DOTS);
+		this.styles.put("blackdots", HorseStyles.BLACK_DOTS);
+
+		this.colors.put("black", HorseColors.BLACK);
+		this.colors.put("brown", HorseColors.BROWN);
+		this.colors.put("chestnut", HorseColors.CHESTNUT);
+		this.colors.put("creamy", HorseColors.CREAMY);
+		this.colors.put("darkbrown", HorseColors.DARK_BROWN);
+		this.colors.put("gray", HorseColors.GRAY);
+		this.colors.put("white", HorseColors.WHITE);
 	}
 
 	@Nonnull
@@ -95,5 +127,20 @@ public class ChoiceMaps {
 	@Nonnull
 	public Map<String, SkeletonType> getSkeletons() {
 		return this.skeletons;
+	}
+
+	@Nonnull
+	public Map<String, HorseVariant> getVariants() {
+		return this.variants;
+	}
+
+	@Nonnull
+	public Map<String, HorseStyle> getStyles() {
+		return this.styles;
+	}
+
+	@Nonnull
+	public Map<String, HorseColor> getColors() {
+		return this.colors;
 	}
 }
