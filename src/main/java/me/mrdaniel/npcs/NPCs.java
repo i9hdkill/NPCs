@@ -82,6 +82,7 @@ import me.mrdaniel.npcs.commands.edit.CommandZombie;
 import me.mrdaniel.npcs.commands.main.CommandCopy;
 import me.mrdaniel.npcs.commands.main.CommandCreate;
 import me.mrdaniel.npcs.commands.main.CommandDeselect;
+import me.mrdaniel.npcs.commands.main.CommandGoto;
 import me.mrdaniel.npcs.commands.main.CommandInfo;
 import me.mrdaniel.npcs.commands.main.CommandList;
 import me.mrdaniel.npcs.commands.main.CommandMount;
@@ -106,7 +107,7 @@ import ninja.leaping.configurate.objectmapping.serialize.TypeSerializers;
 
 @Plugin(id = "npcs",
 		name = "NPCs",
-		version = "2.0.0-API6",
+		version = "2.0.0-API5",
 		authors = {"Daniel12321"},
 		url = "https://github.com/Daniel12321/NPCs",
 		description = "A plugin that adds simple custom NPC's to your worlds.",
@@ -177,7 +178,8 @@ public class NPCs {
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Remove Command")).permission("npc.remove").executor(new CommandRemove(this)).build(), "remove")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Copy Command")).permission("npc.copy").executor(new CommandCopy(this)).build(), "copy")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Mount Command")).permission("npc.mount").executor(new CommandMount(this)).build(), "mount")
-			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Deselect Command")).permission("npc.edit.deselect").executor(new CommandDeselect(this)).build(), "deselect")
+			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Deselect Command")).permission("npc.deselect").executor(new CommandDeselect(this)).build(), "deselect")
+			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | GoTo Command")).permission("npc.goto").executor(new CommandGoto(this)).build(), "goto")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Move Command")).permission("npc.edit.move").executor(new CommandMove(this)).build(), "move")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Name Command")).permission("npc.edit.name").arguments(GenericArguments.remainingJoinedStrings(Text.of("name"))).executor(new CommandName(this)).build(), "name")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Look Command")).permission("npc.edit.look").arguments(GenericArguments.optional(GenericArguments.bool(Text.of("look")))).executor(new CommandLook(this)).build(), "look")
@@ -187,11 +189,11 @@ public class NPCs {
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Skin Command")).permission("npc.edit.skin").arguments(GenericArguments.string(Text.of("name"))).executor(new CommandSkin(this)).build(), "skin")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Career Command")).permission("npc.edit.career").arguments(GenericArguments.catalogedElement(Text.of("career"), Career.class)).executor(new CommandCareer(this)).build(), "career")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Cat Command")).permission("npc.edit.cat").arguments(GenericArguments.catalogedElement(Text.of("cat"), OcelotType.class)).executor(new CommandCat(this)).build(), "cat")
-			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Style Command")).permission("npc.edit.style").arguments(GenericArguments.catalogedElement(Text.of("style"), HorseStyle.class)).executor(new CommandStyle(this)).build(), "style")
-			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Color Command")).permission("npc.edit.color").arguments(GenericArguments.catalogedElement(Text.of("color"), HorseColor.class)).executor(new CommandColor(this)).build(), "color")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Variant Command")).permission("npc.edit.variant").arguments(GenericArguments.catalogedElement(Text.of("variant"), HorseVariant.class)).executor(new CommandVariant(this)).build(), "variant")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Zombie Command")).permission("npc.edit.zombie").arguments(GenericArguments.catalogedElement(Text.of("zombie"), ZombieType.class)).executor(new CommandZombie(this)).build(), "zombie")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Skeleton Command")).permission("npc.edit.skeleton").arguments(GenericArguments.catalogedElement(Text.of("skeleton"), SkeletonType.class)).executor(new CommandSkeleton(this)).build(), "skeleton")
+			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Style Command")).permission("npc.edit.style").arguments(GenericArguments.catalogedElement(Text.of("style"), HorseStyle.class)).executor(new CommandStyle(this)).build(), "style")
+			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Color Command")).permission("npc.edit.color").arguments(GenericArguments.catalogedElement(Text.of("color"), HorseColor.class)).executor(new CommandColor(this)).build(), "color")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Size Command")).permission("npc.edit.size").arguments(GenericArguments.integer(Text.of("size"))).executor(new CommandSize(this)).build(), "size")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Sit Command")).permission("npc.edit.sit").arguments(GenericArguments.optional(GenericArguments.bool(Text.of("sit")))).executor(new CommandSit(this)).build(), "sit")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Charged Command")).permission("npc.edit.charge").arguments(GenericArguments.optional(GenericArguments.bool(Text.of("charged")))).executor(new CommandCharged(this)).build(), "charged")
@@ -232,7 +234,7 @@ public class NPCs {
 					.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Pause Action Command")).permission("npc.action.pause").executor(new CommandActionAdd.Pause(this)).build(), "pause")
 					.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Goto Action Command")).permission("npc.action.goto").arguments(GenericArguments.integer(Text.of("next"))).executor(new CommandActionAdd.Goto(this)).build(), "goto")
 					.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Choices Action Command")).permission("npc.action.choices").arguments(GenericArguments.string(Text.of("first")), GenericArguments.integer(Text.of("goto_first")), GenericArguments.string(Text.of("second")), GenericArguments.integer(Text.of("goto_second"))).executor(new CommandActionAdd.Choices(this)).build(), "choices")
-					.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Condition Action Command")).arguments(GenericArguments.integer(Text.of("goto_failed")), GenericArguments.integer(Text.of("goto_met")), GenericArguments.bool(Text.of("take")))
+					.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Condition Action Command"))
 						.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Item Condition Action Command")).permission("npc.action.condition.item").arguments(GenericArguments.catalogedElement(Text.of("type"), ItemType.class), GenericArguments.integer(Text.of("amount")), GenericArguments.optionalWeak(GenericArguments.string(Text.of("name")))).executor(new CommandActionAddCondition.Item(this)).build(), "item")
 						.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Level Condition Action Command")).permission("npc.action.condition.level").arguments(GenericArguments.integer(Text.of("level"))).executor(new CommandActionAddCondition.Level(this)).build(), "level")
 						.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPCs | Add Exp Condition Action Command")).permission("npc.action.condition.exp").arguments(GenericArguments.integer(Text.of("exp"))).executor(new CommandActionAddCondition.Exp(this)).build(), "exp")
