@@ -25,10 +25,11 @@ import me.mrdaniel.npcs.catalogtypes.cattype.CatType;
 import me.mrdaniel.npcs.catalogtypes.glowcolor.GlowColor;
 import me.mrdaniel.npcs.catalogtypes.horsecolor.HorseColor;
 import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePattern;
-import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaType;
+import me.mrdaniel.npcs.catalogtypes.horsetype.HorseType;
 import me.mrdaniel.npcs.catalogtypes.npctype.NPCType;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
+import me.mrdaniel.npcs.catalogtypes.skeletontype.SkeletonType;
+import me.mrdaniel.npcs.catalogtypes.zombietype.ZombieType;
 import me.mrdaniel.npcs.exceptions.ActionException;
 import me.mrdaniel.npcs.utils.Position;
 import ninja.leaping.configurate.ConfigurationNode;
@@ -140,23 +141,26 @@ public class NPCFile extends Config {
 	public NPCFile setCareer(@Nonnull final Career value) { this.getNode("career").setValue(value.getId()); return this; }
 	public Optional<Career> getCareer() { return NPCs.getInstance().getGame().getRegistry().getType(Career.class, this.getNode("career").getString("")); }
 
+	public NPCFile setZombieType(@Nonnull final ZombieType value) { this.getNode("zombietype").setValue(value.getId()); return this; }
+	public Optional<ZombieType> getZombieType() { return NPCs.getInstance().getGame().getRegistry().getType(ZombieType.class, this.getNode("zombietype").getString("")); }
+
+	public NPCFile setSkeletonType(@Nonnull final SkeletonType value) { this.getNode("skeletontype").setValue(value.getId()); return this; }
+	public Optional<SkeletonType> getSkeletonType() { return NPCs.getInstance().getGame().getRegistry().getType(SkeletonType.class, this.getNode("skeletontype").getString("")); }
+
 	public NPCFile setHorsePattern(@Nonnull final HorsePattern value) { this.getNode("horse", "pattern").setValue(value.getId()); return this; }
 	public Optional<HorsePattern> getHorsePattern() { return NPCs.getInstance().getGame().getRegistry().getType(HorsePattern.class, this.getNode("horse", "pattern").getString("")); }
 
 	public NPCFile setHorseColor(@Nonnull final HorseColor value) { this.getNode("horse", "color").setValue(value.getId()); return this; }
 	public Optional<HorseColor> getHorseColor() { return NPCs.getInstance().getGame().getRegistry().getType(HorseColor.class, this.getNode("horse", "color").getString("")); }
 
-	public NPCFile setLlamaType(@Nonnull final LlamaType value) { this.getNode("llamatype").setValue(value.getId()); return this; }
-	public Optional<LlamaType> getLlamaType() { return NPCs.getInstance().getGame().getRegistry().getType(LlamaType.class, this.getNode("llamatype").getString("")); }
+	public NPCFile setHorseType(@Nonnull final HorseType value) { this.getNode("horsetype").setValue(value.getId()); return this; }
+	public Optional<HorseType> getHorseType() { return NPCs.getInstance().getGame().getRegistry().getType(HorseType.class, this.getNode("horsetype").getString("")); }
 
 	public NPCFile setCatType(@Nonnull final CatType value) { this.getNode("cattype").setValue(value.getId()); return this; }
 	public Optional<CatType> getCatType() { return NPCs.getInstance().getGame().getRegistry().getType(CatType.class, this.getNode("cattype").getString("")); }
 
 	public NPCFile setRabbitType(@Nonnull final RabbitType value) { this.getNode("rabbittype").setValue(value.getId()); return this; }
 	public Optional<RabbitType> getRabbitType() { return NPCs.getInstance().getGame().getRegistry().getType(RabbitType.class, this.getNode("rabbittype").getString("")); }
-
-	public NPCFile setParrotType(@Nonnull final ParrotType value) { this.getNode("parrottype").setValue(value.getId()); return this; }
-	public Optional<ParrotType> getParrotType() { return NPCs.getInstance().getGame().getRegistry().getType(ParrotType.class, this.getNode("parrottype").getString("")); }
 
 	public NPCFile setHelmet(@Nullable final ItemStack value) { this.setItemStack(this.getNode("equipment", "helmet"), value); return this; }
 	public Optional<ItemStack> getHelmet() { return this.getItemStack(this.getNode("equipment", "helmet")); }

@@ -6,7 +6,6 @@ import me.mrdaniel.npcs.catalogtypes.career.Career;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionType;
 import me.mrdaniel.npcs.interfaces.mixin.NPCAble;
 import me.mrdaniel.npcs.io.NPCFile;
-import net.minecraft.entity.monster.EntityZombieVillager;
 import net.minecraft.entity.passive.EntityVillager;
 
 public class OptionCareer extends OptionType<Career> {
@@ -17,7 +16,7 @@ public class OptionCareer extends OptionType<Career> {
 
 	@Override
 	public boolean isSupported(final NPCAble npc) {
-		return npc instanceof EntityVillager || npc instanceof EntityZombieVillager;
+		return npc instanceof EntityVillager;
 	}
 
 	@Override

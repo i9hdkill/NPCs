@@ -28,27 +28,28 @@ import me.mrdaniel.npcs.catalogtypes.horsecolor.HorseColor;
 import me.mrdaniel.npcs.catalogtypes.horsecolor.HorseColors;
 import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePattern;
 import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePatterns;
-import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaType;
+import me.mrdaniel.npcs.catalogtypes.horsetype.HorseType;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypeRegistryModule;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypes;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
+import me.mrdaniel.npcs.catalogtypes.skeletontype.SkeletonType;
+import me.mrdaniel.npcs.catalogtypes.zombietype.ZombieType;
 import me.mrdaniel.npcs.interfaces.mixin.IMixinEntityVillager;
 import me.mrdaniel.npcs.interfaces.mixin.NPCAble;
 import me.mrdaniel.npcs.io.NPCFile;
 import me.mrdaniel.npcs.managers.NPCManager;
 import me.mrdaniel.npcs.utils.Position;
 import me.mrdaniel.npcs.utils.TextUtils;
+
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySnowman;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityTameable;
@@ -180,9 +181,9 @@ public abstract class MixinEntityLiving extends EntityLivingBase implements NPCA
 			if (team == null) { team = board.createTeam(teamName); }
 
 			board.addPlayerToTeam(npcName, teamName);
-			team.setColor(value.getColor());
-			team.setPrefix(value.getColor().toString());
-			team.setSuffix(TextFormatting.RESET.toString());
+			team.setChatFormat(value.getColor());
+			team.setNamePrefix(value.getColor().toString());
+			team.setNameSuffix(TextFormatting.RESET.toString());
 		}
 	}
 
@@ -246,8 +247,18 @@ public abstract class MixinEntityLiving extends EntityLivingBase implements NPCA
 	}
 
 	@Override
-	public void setNPCLlamaType(final LlamaType value) {
-		((EntityLlama)(Object)this).setVariant(value.getNbtId());
+	public void setNPCHorseType(final HorseType value) {
+		((EntityHorse)(Object)this).setType(value.getType());
+	}
+
+	@Override
+	public void setNPCZombieType(final ZombieType value) {
+		((EntityZombie)(Object)this).setZombieType(value.getType());
+	}
+
+	@Override
+	public void setNPCSkeletonType(final SkeletonType value) {
+		((EntitySkeleton)(Object)this).setSkeletonType(value.getType());
 	}
 
 	@Override
@@ -258,11 +269,6 @@ public abstract class MixinEntityLiving extends EntityLivingBase implements NPCA
 	@Override
 	public void setNPCRabbitType(final RabbitType value) {
 		((EntityRabbit)(Object)this).setRabbitType(value.getNbtId());
-	}
-
-	@Override
-	public void setNPCParrotType(final ParrotType value) {
-		((EntityParrot)(Object)this).setVariant(value.getNbtId());
 	}
 
 	@Override
