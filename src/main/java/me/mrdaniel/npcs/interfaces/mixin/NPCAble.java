@@ -15,7 +15,6 @@ import me.mrdaniel.npcs.catalogtypes.glowcolor.GlowColor;
 import me.mrdaniel.npcs.catalogtypes.horsecolor.HorseColor;
 import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePattern;
 import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaType;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
 import me.mrdaniel.npcs.io.NPCFile;
 import me.mrdaniel.npcs.managers.MenuManager;
@@ -56,7 +55,6 @@ public interface NPCAble {
 	void setNPCLlamaType(@Nonnull final LlamaType value);
 	void setNPCCatType(@Nonnull final CatType value);
 	void setNPCRabbitType(@Nonnull final RabbitType value);
-	void setNPCParrotType(@Nonnull final ParrotType value);
 
 	void setNPCHelmet(@Nonnull final ItemStack value);
 	void setNPCChestplate(@Nonnull final ItemStack value);

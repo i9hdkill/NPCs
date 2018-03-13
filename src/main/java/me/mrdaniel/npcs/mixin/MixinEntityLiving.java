@@ -31,7 +31,6 @@ import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePatterns;
 import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaType;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypeRegistryModule;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypes;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
 import me.mrdaniel.npcs.interfaces.mixin.IMixinEntityVillager;
 import me.mrdaniel.npcs.interfaces.mixin.NPCAble;
@@ -48,7 +47,6 @@ import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityLlama;
 import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.passive.EntityTameable;
@@ -258,11 +256,6 @@ public abstract class MixinEntityLiving extends EntityLivingBase implements NPCA
 	@Override
 	public void setNPCRabbitType(final RabbitType value) {
 		((EntityRabbit)(Object)this).setRabbitType(value.getNbtId());
-	}
-
-	@Override
-	public void setNPCParrotType(final ParrotType value) {
-		((EntityParrot)(Object)this).setVariant(value.getNbtId());
 	}
 
 	@Override

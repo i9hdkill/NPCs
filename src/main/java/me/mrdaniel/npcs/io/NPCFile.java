@@ -27,7 +27,6 @@ import me.mrdaniel.npcs.catalogtypes.horsecolor.HorseColor;
 import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePattern;
 import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaType;
 import me.mrdaniel.npcs.catalogtypes.npctype.NPCType;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
 import me.mrdaniel.npcs.exceptions.ActionException;
 import me.mrdaniel.npcs.utils.Position;
@@ -154,9 +153,6 @@ public class NPCFile extends Config {
 
 	public NPCFile setRabbitType(@Nonnull final RabbitType value) { this.getNode("rabbittype").setValue(value.getId()); return this; }
 	public Optional<RabbitType> getRabbitType() { return NPCs.getInstance().getGame().getRegistry().getType(RabbitType.class, this.getNode("rabbittype").getString("")); }
-
-	public NPCFile setParrotType(@Nonnull final ParrotType value) { this.getNode("parrottype").setValue(value.getId()); return this; }
-	public Optional<ParrotType> getParrotType() { return NPCs.getInstance().getGame().getRegistry().getType(ParrotType.class, this.getNode("parrottype").getString("")); }
 
 	public NPCFile setHelmet(@Nullable final ItemStack value) { this.setItemStack(this.getNode("equipment", "helmet"), value); return this; }
 	public Optional<ItemStack> getHelmet() { return this.getItemStack(this.getNode("equipment", "helmet")); }

@@ -29,7 +29,6 @@ import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionLooking;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionMainHand;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionName;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionOffHand;
-import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionParrotType;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionPosition;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionPumpkin;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionRabbitType;
@@ -39,7 +38,6 @@ import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionSitting;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionSize;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionSkin;
 import me.mrdaniel.npcs.catalogtypes.optiontype.types.OptionWorld;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
 import me.mrdaniel.npcs.utils.Position;
 
@@ -69,7 +67,6 @@ public final class OptionTypes {
 	public static final OptionType<LlamaType> LLAMATYPE = new OptionLlamaType();
 	public static final OptionType<CatType> CATTYPE = new OptionCatType();
 	public static final OptionType<RabbitType> RABBITTYPE = new OptionRabbitType();
-	public static final OptionType<ParrotType> PARROTTYPE = new OptionParrotType();
 
 	public static final OptionType<ItemStack> HELMET = new OptionHelmet();
 	public static final OptionType<ItemStack> CHESTPLATE = new OptionChestplate();

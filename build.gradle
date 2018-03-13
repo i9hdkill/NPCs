@@ -10,7 +10,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
         classpath 'org.spongepowered:mixingradle:0.4-SNAPSHOT'
     }
 }
@@ -49,8 +49,8 @@ dependencies {
 }
 
 minecraft {
-    version = '1.12'
-    mappings = 'snapshot_20170818'
+    version = '1.11'
+    mappings = 'snapshot_20170612'
 }
 
 sourceSets {

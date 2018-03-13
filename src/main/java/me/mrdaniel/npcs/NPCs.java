@@ -65,8 +65,6 @@ import me.mrdaniel.npcs.catalogtypes.npctype.NPCTypeRegistryModule;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionType;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypeRegistryModule;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypes;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotType;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotTypeRegistryModule;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitType;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitTypeRegistryModule;
 import me.mrdaniel.npcs.commands.CommandEdit;
@@ -177,7 +175,6 @@ public class NPCs {
 		this.game.getRegistry().registerModule(HorseColor.class, new HorseColorRegistryModule());
 		this.game.getRegistry().registerModule(HorsePattern.class, new HorsePatternRegistryModule());
 		this.game.getRegistry().registerModule(LlamaType.class, new LlamaTypeRegistryModule());
-		this.game.getRegistry().registerModule(ParrotType.class, new ParrotTypeRegistryModule());
 		this.game.getRegistry().registerModule(RabbitType.class, new RabbitTypeRegistryModule());
 
 		this.game.getRegistry().registerModule(PageType.class, new PageTypeRegistryModule());
@@ -238,7 +235,6 @@ public class NPCs {
 			.child(CommandSpec.builder().description(this.desc("Set LlamaType")).permission("npc.edit.llamatype").arguments(GenericArguments.catalogedElement(Text.of("llamatype"), LlamaType.class)).executor(new CommandEdit<>(PageTypes.MAIN, OptionTypes.LLAMATYPE)).build(), "llamatype")
 			.child(CommandSpec.builder().description(this.desc("Set CatType")).permission("npc.edit.cattype").arguments(GenericArguments.catalogedElement(Text.of("cattype"), CatType.class)).executor(new CommandEdit<>(PageTypes.MAIN, OptionTypes.CATTYPE)).build(), "cattype")
 			.child(CommandSpec.builder().description(this.desc("Set RabbitType")).permission("npc.edit.rabbittype").arguments(GenericArguments.catalogedElement(Text.of("rabbittype"), RabbitType.class)).executor(new CommandEdit<>(PageTypes.MAIN, OptionTypes.RABBITTYPE)).build(), "rabbittype")
-			.child(CommandSpec.builder().description(this.desc("Set ParrotType")).permission("npc.edit.parrottype").arguments(GenericArguments.catalogedElement(Text.of("parrottype"), ParrotType.class)).executor(new CommandEdit<>(PageTypes.MAIN, OptionTypes.PARROTTYPE)).build(), "parrottype")
 			.child(CommandSpec.builder().description(Text.of(TextColors.GOLD, "NPC | Helmet"))
 				.child(CommandSpec.builder().description(this.desc("Give Helmet")).permission("npc.armor.helmet.give").executor(new CommandEquipmentGive.Helmet()).build(), "give")
 				.child(CommandSpec.builder().description(this.desc("Remove Helmet")).permission("npc.armor.helmet.remove").executor(new CommandEquipmentRemove.Helmet()).build(), "remove")

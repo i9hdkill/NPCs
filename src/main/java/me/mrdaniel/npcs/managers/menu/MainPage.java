@@ -14,7 +14,6 @@ import me.mrdaniel.npcs.catalogtypes.horsepattern.HorsePatterns;
 import me.mrdaniel.npcs.catalogtypes.llamatype.LlamaTypes;
 import me.mrdaniel.npcs.catalogtypes.npctype.NPCTypes;
 import me.mrdaniel.npcs.catalogtypes.optiontype.OptionTypes;
-import me.mrdaniel.npcs.catalogtypes.parrottype.ParrotTypes;
 import me.mrdaniel.npcs.catalogtypes.rabbittype.RabbitTypes;
 import me.mrdaniel.npcs.interfaces.mixin.NPCAble;
 import me.mrdaniel.npcs.io.NPCFile;
@@ -75,6 +74,5 @@ public class MainPage extends Page {
 		if (OptionTypes.LLAMATYPE.isSupported(npc)) { lines[++c] = TextUtils.getOptionsText("LlamaType", "/npc llamatype <type>", file.getLlamaType().orElse(LlamaTypes.WHITE).getName()); }
 		if (OptionTypes.CATTYPE.isSupported(npc)) { lines[++c] = TextUtils.getOptionsText("CatType", "/npc cattype <type>", file.getCatType().orElse(CatTypes.WILD).getName()); }
 		if (OptionTypes.RABBITTYPE.isSupported(npc)) { lines[++c] = TextUtils.getOptionsText("RabbitType", "/npc rabbittype <type>", file.getRabbitType().orElse(RabbitTypes.BROWN).getName()); }
-		if (OptionTypes.PARROTTYPE.isSupported(npc)) { lines[++c] = TextUtils.getOptionsText("ParrotType", "/npc parrottype <type>", file.getParrotType().orElse(ParrotTypes.RED).getName()); }
 	}
 }
