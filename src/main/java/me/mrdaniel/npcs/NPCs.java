@@ -124,7 +124,7 @@ public class NPCs {
 
 	public static final String MODID = "npcs";
 	public static final String NAME = "NPCs";
-	public static final String VERSION = "3.0.0";
+	public static final String VERSION = "3.0.1";
 	public static final int NPC_DATA_VERSION = 2;
 
 	@Getter private static NPCs instance;
