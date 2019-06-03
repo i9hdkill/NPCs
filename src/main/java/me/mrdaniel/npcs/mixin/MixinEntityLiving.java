@@ -314,8 +314,8 @@ public abstract class MixinEntityLiving extends EntityLivingBase implements NPCA
 	@Inject(method = "onEntityUpdate", at = @At("RETURN"))
 	public void onOnEntityUpdate(final CallbackInfo ci) {
 		if (this.file != null && this.looking) {
-			super.world.getEntities(EntityPlayer.class, p -> p.getDistanceToEntity(this) < 20.0 && p.getUniqueID() != super.entityUniqueID)
-			.stream().reduce((p1, p2) -> p1.getDistanceToEntity(this) < p2.getDistanceToEntity(this) ? p1 : p2)
+			super.world.getEntities(EntityPlayer.class, p -> p.getDistance(this) < 20.0 && p.getUniqueID() != super.entityUniqueID)
+			.stream().reduce((p1, p2) -> p1.getDistance(this) < p2.getDistance(this) ? p1 : p2)
 			.ifPresent(p -> ((Living)this).lookAt(new Vector3d(p.posX, p.posY + p.getEyeHeight(), p.posZ)));
 		}
 	}

@@ -26,7 +26,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 group = 'me.mrdaniel.npcs'
-version = '3.0.0'
+version = '3.0.1'
 description = 'A plugin that adds simple custom NPCs to your worlds.'
 
 compileJava.options.encoding = 'UTF-8'
@@ -43,14 +43,14 @@ allprojects {
 
 dependencies {
     compile 'org.projectlombok:lombok:1.16.16'
-    compile 'org.spongepowered:spongeapi:7.0.0-SNAPSHOT'
+    compile 'org.spongepowered:spongeapi:7.2.0-SNAPSHOT'
     compile 'org.spongepowered:mixin:0.7.4-SNAPSHOT'
     compile 'com.github.rojo8399:PlaceholderAPI:master-SNAPSHOT'
 }
 
 minecraft {
-    version = '1.12'
-    mappings = 'snapshot_20170818'
+    version = '1.12.2'
+    mappings = 'stable_39'
 }
 
 sourceSets {
